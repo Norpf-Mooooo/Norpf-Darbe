@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        video {
+            max-width: 80%;
+            max-height: 80%;
+            outline: none;
+        }
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <video id="video-player" autoplay></video>
+
+    <script>
+        window.addEventListener("message", function(event) {
+            var data = event.data;
+            if (data.type === "open") {
+                document.body.style.display = "flex";
+                var videoPlayer = document.getElementById("video-player");
+                videoPlayer.src = "videos/" + data.video;
+                videoPlayer.play();
+
+                // Video bittiğinde yapılacak işlem
+                videoPlayer.addEventListener("ended", function() {
+                    document.body.style.display = "none";
+                    fetch("https://npf-darbe/close", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json; charset=UTF-8"
+                        },
+                        body: JSON.stringify({})
+                    }).then(response => {
+                        // Sunucuya video bitimi bildirimini gönderdik
+                        console.log("Video bitti, sunucuya bildirim gönderildi.");
+                    });
+                });
+            }
+        });
+
+        document.getElementById("close-btn").addEventListener("click", function() {
+            document.body.style.display = "none";
+            fetch("https://npf-darbe/close", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({})
+            });
+        });
+    </script>
+</body>
+</html>
