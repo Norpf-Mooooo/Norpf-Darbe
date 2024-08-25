@@ -14,6 +14,6 @@ end)
 RegisterServerEvent("server:kickAllPlayers")
 AddEventHandler("server:kickAllPlayers", function()
     for _, playerId in ipairs(GetPlayers()) do
-        DropPlayer(playerId, "SCRP İyi Günler Diler.")
+        DropPlayer(playerId, "Norpf İyi Günler Diler.")
     end
 end)
