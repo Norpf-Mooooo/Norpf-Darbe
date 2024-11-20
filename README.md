@@ -5,3 +5,4 @@ Komut çalıştırıldığında ekrana video gelir ve video bittikten sonra herk
 Video esnasında videoyu duraklatamaz, kapatamaz, sesini kısıp kapatamazlar.
 
 Eğlencesine yazmış olduğum bir scripttir.
+!!! LÜTFEN SUNUCULARDAN BANLAMAYINIZ :D !!!
